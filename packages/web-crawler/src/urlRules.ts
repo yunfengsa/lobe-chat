@@ -16,11 +16,15 @@ export const crawUrlRules: CrawlUrlRule[] = [
     // GitHub discussion
     urlPattern: 'https://github.com/(.*)/discussions/(.*)',
   },
-
   // 所有 PDF 都用 jina
   {
     impls: ['jina'],
     urlPattern: 'https://(.*).pdf',
+  },
+  // arxiv PDF use jina
+  {
+    impls: ['jina'],
+    urlPattern: 'https://arxiv.org/pdf/(.*)',
   },
   // 知乎有爬虫防护，使用 jina
   {
@@ -28,11 +32,26 @@ export const crawUrlRules: CrawlUrlRule[] = [
     urlPattern: 'https://zhuanlan.zhihu.com(.*)',
   },
   {
+    impls: ['jina'],
+    urlPattern: 'https://zhihu.com(.*)',
+  },
+  // 微信公众号有爬虫防护，使用 jina
+  {
+    impls: ['jina'],
+    urlPattern: 'https://mp.weixin.qq.com(.*)',
+  },
+  {
     // Medium 文章转换为 Scribe.rip
     urlPattern: 'https://medium.com/(.*)',
     urlTransform: 'https://scribe.rip/$1',
   },
-
+  {
+    filterOptions: {
+      enableReadability: false,
+    },
+    impls: ['jina', 'browserless'],
+    urlPattern: 'https://(twitter.com|x.com)/(.*)',
+  },
   // 体育数据网站规则
   {
     filterOptions: {
